@@ -18,6 +18,10 @@ type album struct {
 	Price  float64 `json:"price"`
 }
 
+type simpleJson struct {
+	testa string `json:"testa"`
+}
+
 // albums slice to seed record album data.
 var albums = []album{
 	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
@@ -46,6 +50,16 @@ func postAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
+func testaPost(c *gin.Context) {
+	var newTesta simpleJson
+
+	if err := c.BindJSON(&newTesta); err != nil {
+		return
+	}
+
+	c.IndentedJSON(http.StatusCreated, newTesta)
+}
+
 func main() {
 	port := os.Getenv("PORT")
 
@@ -63,6 +77,7 @@ func main() {
 	})
 
 	router.GET("/albums", getAlbums)
+	router.POST("/new", testaPost)
 
 	router.Run(":" + port)
 }
