@@ -9,19 +9,9 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	//w.Write([]byte("ındex page"))
-
-	x := r.URL.Path[1:]
-	data := ""
-
-	if len(x) > 0 {
-		data = "merhaba " + x + "!"
-	} else {
-		data = "index page"
-	}
-	w.Write([]byte(data))
-
+// getAlbums responds with the list of all albums as JSON.
+func getAlbums(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, c.Accepted)
 }
 
 func main() {
@@ -40,7 +30,7 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	http.HandleFunc("/index", indexHandler)
+	router.GET("/albums", getAlbums)
 
 	router.Run(":" + port)
 }
