@@ -1,29 +1,32 @@
 package main
 
-import (
-	"log"
-	"net/http"
-	"os"
+import "net/http"
 
-	"github.com/gin-gonic/gin"
-	_ "github.com/heroku/x/hmetrics/onload"
-)
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	//w.Write([]byte("ındex page"))
 
-func main() {
-	port := os.Getenv("PORT")
+	x := r.URL.Path[1:]
+	data := ""
 
-	if port == "" {
-		log.Fatal("$PORT must be set")
+	if len(x) > 0 {
+		data = "merhaba " + x + "!"
+	} else {
+		data = "index page"
 	}
+	w.Write([]byte(data))
 
-	router := gin.New()
-	router.Use(gin.Logger())
-	router.LoadHTMLGlob("templates/*.tmpl.html")
-	router.Static("/static", "static")
+}
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("About Page"))
+}
 
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
-	})
+func anaHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("GİRİŞ EKRANI"))
+}
+func main() {
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/index", indexHandler)
+	http.HandleFunc("/ana", anaHandler)
 
-	router.Run(":" + port)
+	//http.ListenAndServe(":8080", nil)
 }
