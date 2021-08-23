@@ -57,7 +57,9 @@ func testaPost(c *gin.Context) {
 		return
 	}
 
-	c.IndentedJSON(http.StatusCreated, newTesta)
+	fmt.Printf("%s", c.Request.Body)
+
+	c.IndentedJSON(http.StatusCreated, c.Request.Body)
 }
 
 func main() {
