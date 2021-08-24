@@ -19,7 +19,7 @@ type album struct {
 }
 
 type simpleJson struct {
-	testa string `json:"testa"`
+	//testa string `json:"testa"`
 }
 
 // albums slice to seed record album data.
@@ -29,9 +29,9 @@ var albums = []album{
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
-// getAlbums responds with the list of all albums as JSON.
+//getAlbums responds with the list of all albums as JSON.
 func getAlbums(c *gin.Context) {
-	fmt.Printf("Ulooo", c.Request)
+	//fmt.Printf("Ulooo", c.Request)
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
@@ -78,7 +78,7 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	router.GET("/albums", getAlbums)
+	router.POST("/albums", getAlbums)
 	router.POST("/new", testaPost)
 
 	router.Run(":" + port)
