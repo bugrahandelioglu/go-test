@@ -45,7 +45,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
-	router.POST("/albums", getAlbums)
+	router.GET("/albums", getAlbums)
 
 	router.Run(":" + port)
 }
