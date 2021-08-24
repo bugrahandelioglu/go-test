@@ -1,12 +1,29 @@
 package main
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+	"os"
 
-func ana(w http.ResponseWriter, r *http.Request) {
-
-}
+	"github.com/gin-gonic/gin"
+	_ "github.com/heroku/x/hmetrics/onload"
+)
 
 func main() {
-	http.HandleFunc("/ana", ana)
+	port := os.Getenv("PORT")
 
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("templates/*.tmpl.html")
+	router.Static("/static", "static")
+
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	})
+
+	router.Run(":" + port)
 }
