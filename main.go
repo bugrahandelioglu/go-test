@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -27,7 +26,7 @@ type album struct {
 var albums = ""
 
 func getAlbums(c *gin.Context) {
-	fmt.Println("Ulooo", c.Request)
+	//	fmt.Println("Ulooo", c.Request)
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
