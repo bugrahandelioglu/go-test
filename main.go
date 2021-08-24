@@ -24,7 +24,7 @@ type album struct {
 }
 */
 
-var albums = "merhaba"
+var albums = ""
 
 func getAlbums(c *gin.Context) {
 	fmt.Println("Ulooo", c.Request)
