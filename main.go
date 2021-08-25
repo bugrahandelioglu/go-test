@@ -43,9 +43,14 @@ func main() {
 	router = gin.Default()
 	router.GET("/albums", getAlbums)
 	router.GET("/albums/:id", getAlbumByID)
+	router.GET("/hubbox", hubbox)
 	router.POST("/albums", postAlbums)
 
 	router.Run(":" + port)
+}
+
+func hubbox(c *gin.Context) {
+
 }
 
 // getAlbums responds with the list of all albums as JSON.
